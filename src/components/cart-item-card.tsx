@@ -10,7 +10,7 @@ export interface CartItemCardProps extends ReactProps {
 
 export const CartItemCard = (props: CartItemCardProps) => {
   return (
-    <div className="flex flex-col border-black border-1 rounded-md flex-1 p-2 h-32">
+    <div className="flex flex-col border-black border-1 rounded-md flex-1 p-2 min-h-32">
       <h1 className="font-bold text-xl line-clamp-1">{props.productTitle}</h1>
       <h6 className="text-sm">${props.price}</h6>
       <div className="flex-1"></div>
