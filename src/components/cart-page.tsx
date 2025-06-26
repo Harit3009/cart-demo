@@ -21,7 +21,7 @@ export const CartPageComponent = (props: Props) => {
   );
 
   const [cardItems, setCardItems] =
-    useState<Omit<CartItemCardProps, "onRemove">[]>(initialCardItems);
+    useState<Omit<CartItemCardProps, "actions">[]>(initialCardItems);
 
   const getTotalPrice = useMemo(
     () => cardItems.reduce((total, item) => (total += item.price), 0),
@@ -30,6 +30,19 @@ export const CartPageComponent = (props: Props) => {
 
   const onRemove = (id: string) => {
     setCardItems((items) => items.filter((item) => item.id !== id));
+  };
+
+  const getRemoveButton = (item: Omit<CartItemCardProps, "actions">) => {
+    return (
+      <div className="flex justify-end">
+        <button
+          onClick={() => onRemove(item.id)}
+          className="font-bold cursor-pointer p-2 text-sm px-3 py-2 bg-gray-200"
+        >
+          Remove
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -65,7 +78,7 @@ export const CartPageComponent = (props: Props) => {
                 <CartItemCard
                   key={cartItem.id}
                   {...cartItem}
-                  onRemove={() => onRemove(cartItem.id)}
+                  actions={[{ component: () => getRemoveButton(cartItem) }]}
                 />
               );
             })}
